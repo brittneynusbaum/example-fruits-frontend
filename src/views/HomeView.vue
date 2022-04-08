@@ -105,9 +105,16 @@ export default {
     </dialog>
     <div v-for="fruit in fruits" v-bind:key="fruit.id">
       <p>{{ fruit.name }}</p>
+      <p>
+        <img v-bind:src="fruit.image" />
+      </p>
       <button v-on:click="showFruit(fruit)">More info</button>
     </div>
   </div>
 </template>
 
-<style></style>
+<style>
+img {
+  width: 120px;
+}
+</style>

@@ -68,6 +68,10 @@ export default {
         Flavor:
         <input v-model="newFruit.flavor" />
       </p>
+      <p>
+        Image:
+        <input v-model="newFruit.image" />
+      </p>
       <button v-on:click="createFruit()">Add new fruit</button>
     </div>
     <dialog id="fruit-details">
@@ -85,10 +89,15 @@ export default {
           Flavor:
           <input v-model="currentFruit.flavor" />
         </p>
+        <p>
+          Image:
+          <input v-model="currentFruit.image" />
+        </p>
+        <h3>Update fruit</h3>
         <p>Name: {{ currentFruit.name }}</p>
         <p>Color: {{ currentFruit.color }}</p>
         <p>Flavor: {{ currentFruit.flavor }}</p>
-        <h3>Update fruit</h3>
+        <p>Image: {{ currentFruit.image }}</p>
         <button v-on:click="updateFruit()">Update fruit</button>
         <button v-on:click="destroyFruit()">Delete fruit</button>
         <button>Close</button>

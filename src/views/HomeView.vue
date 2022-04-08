@@ -24,6 +24,7 @@ export default {
       console.log('creating fruit: ');
       axios.post(`/fruits`, this.newFruit).then(response => {
         console.log(response.data);
+        this.fruits.push(response.data)
         this.newFruit = {}
       });
     }

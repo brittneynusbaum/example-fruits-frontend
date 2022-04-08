@@ -6,7 +6,8 @@ export default {
     return {
       message: "Welcome to Fruits!",
       fruits: [],
-      newFruit: {}
+      newFruit: {},
+      currentFruit: {}
     };
   },
   created: function () {
@@ -27,6 +28,25 @@ export default {
         this.fruits.push(response.data)
         this.newFruit = {}
       });
+    },
+    showFruit: function (fruit) {
+      console.log('show fruit: ');
+      this.currentFruit = fruit;
+      document.querySelector("#fruit-details").showModal();
+    },
+    updateFruit: function () {
+      console.log('update fruit: ')
+      axios.patch(`/fruits/${this.currentFruit.id}`, this.currentFruit).then(response => {
+        console.log(response.data)
+      })
+    },
+    destroyFruit: function () {
+      console.log('deleting fruit: ')
+      axios.delete(`/fruits/${this.currentFruit.id}`, this.currentFruit).then(response => {
+        console.log(response);
+        var index = this.fruits.indexOf(this.currentFruit)
+        this.fruits.splice(index, 1)
+      })
     }
   },
 };
@@ -50,9 +70,33 @@ export default {
       </p>
       <button v-on:click="createFruit()">Add new fruit</button>
     </div>
-
+    <dialog id="fruit-details">
+      <form method="dialog">
+        <h3>Fruit info</h3>
+        <p>
+          Name:
+          <input v-model="currentFruit.name" />
+        </p>
+        <p>
+          Color:
+          <input v-model="currentFruit.color" />
+        </p>
+        <p>
+          Flavor:
+          <input v-model="currentFruit.flavor" />
+        </p>
+        <p>Name: {{ currentFruit.name }}</p>
+        <p>Color: {{ currentFruit.color }}</p>
+        <p>Flavor: {{ currentFruit.flavor }}</p>
+        <h3>Update fruit</h3>
+        <button v-on:click="updateFruit()">Update fruit</button>
+        <button v-on:click="destroyFruit()">Delete fruit</button>
+        <button>Close</button>
+      </form>
+    </dialog>
     <div v-for="fruit in fruits" v-bind:key="fruit.id">
       <p>{{ fruit.name }}</p>
+      <button v-on:click="showFruit(fruit)">More info</button>
     </div>
   </div>
 </template>
